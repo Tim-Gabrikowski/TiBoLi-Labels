@@ -1,10 +1,13 @@
 const { randomInt } = require("crypto");
 var fs = require("fs");
 var pdf = require("html-pdf");
+
+const importSettings = require("./settings.json");
+
 var options = {
 	height: "297mm",
 	width: "210mm",
-	base: "C:Users/timga/Documents/NodeJS/PDF-Creator/template/",
+	base: importSettings.basePath,
 	border: {
 		top: "0mm", // default is 0, units: mm, cm, in, px
 		right: "0mm",
