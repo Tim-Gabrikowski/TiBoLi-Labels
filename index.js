@@ -15,6 +15,7 @@ var options = {
 		left: "0mm",
 	},
 };
+console.log(options.base);
 var testBook = {
 	mNumber: 123456789,
 	title: "Der Marsianer",
