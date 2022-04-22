@@ -23,7 +23,7 @@ var testBook = {
 startAt = "13";
 
 module.exports = {
-	createPDF(inputData, callback) {
+	createPDF(inputData, callback, deleteFile = true) {
 		//generate contractID for filename
 		const contractID = randomInt(99999);
 		const data = {
@@ -39,7 +39,7 @@ module.exports = {
 
 			data.books.push(element);
 		}
-		console.log(data);
+
 		//read Template and replace Placeholders with Data:
 		var html = fs.readFileSync("./template/template.html", "utf8");
 		html = html.replace('"-INPUT-"', JSON.stringify(data));
@@ -54,14 +54,16 @@ module.exports = {
 				//return filename to callback
 				callback(res);
 
-				//delete file after 10 seconds to save space
-				console.log("delete", contractID, "in 10s");
-				setTimeout(() => {
-					console.log("delete", contractID);
-					fs.unlink(res.filename, (error) => {
-						if (error) return console.log(error);
-					});
-				}, 10000);
+				if (deleteFile) {
+					//delete file after 10 seconds to save space
+					console.log("delete", contractID, "in 10s");
+					setTimeout(() => {
+						console.log("delete", contractID);
+						fs.unlink(res.filename, (error) => {
+							if (error) return console.log(error);
+						});
+					}, 10000);
+				}
 			}
 		);
 	},
