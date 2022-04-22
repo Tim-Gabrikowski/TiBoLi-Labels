@@ -7,7 +7,7 @@ const importSettings = require("./settings.json");
 var options = {
 	height: "297mm",
 	width: "210mm",
-	base: importSettings.basePath,
+	base: __dirname + "/template/",
 	border: {
 		top: "0mm", // default is 0, units: mm, cm, in, px
 		right: "0mm",

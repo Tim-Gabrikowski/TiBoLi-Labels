@@ -13,7 +13,7 @@ var testData = {
 			position: 12,
 			title: "inputData.title.2",
 			author: "inputData.author.2",
-			mNumber: 123456789.2,
+			mNumber: 123456780,
 		},
 	],
 };
