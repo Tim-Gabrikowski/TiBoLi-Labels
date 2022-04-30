@@ -1,8 +1,6 @@
 const { randomInt } = require("crypto");
 var fs = require("fs");
-var pdf = require("html-pdf");
-
-const importSettings = require("./settings.json");
+const puppeteer = require("puppeteer");
 
 var options = {
 	height: "297mm",
@@ -23,8 +21,22 @@ var testBook = {
 };
 startAt = "13";
 
+var contracts = [];
+
+async function printPDF(contractID) {
+	const browser = await puppeteer.launch({ headless: true });
+	const page = await browser.newPage();
+	await page.goto("http://localhost:3006/contract/" + contractID, {
+		waitUntil: "networkidle0",
+	});
+	const pdf = await page.pdf({ format: "A4" });
+
+	await browser.close();
+	return pdf;
+}
+
 module.exports = {
-	createPDF(inputData, callback, deleteFile = true) {
+	createPDF(inputData, callback) {
 		//generate contractID for filename
 		const contractID = randomInt(99999);
 		const data = {
@@ -45,27 +57,20 @@ module.exports = {
 		var html = fs.readFileSync("./template/template.html", "utf8");
 		html = html.replace('"-INPUT-"', JSON.stringify(data));
 
+		contracts.push({
+			id: contractID,
+			page: html,
+		});
 		//generate pdf to file with contractID as part of name
-		pdf.create(html, options).toFile(
-			"./tmp/pdf/pdf-" + contractID + ".pdf",
-			function (err, res) {
-				//errorhandling
-				if (err) return console.log(err);
+		printPDF(contractID).then((res) => {
+			//return filename to callback
+			callback(res);
+		});
+	},
+	getContractPage(contractID) {
+		fContracts = contracts.filter((contract) => contract.id == contractID);
+		contracts = contracts.filter((contract) => contract.id != contractID);
 
-				//return filename to callback
-				callback(res);
-
-				if (deleteFile) {
-					//delete file after 10 seconds to save space
-					console.log("delete", contractID, "in 10s");
-					setTimeout(() => {
-						console.log("delete", contractID);
-						fs.unlink(res.filename, (error) => {
-							if (error) return console.log(error);
-						});
-					}, 10000);
-				}
-			}
-		);
+		return fContracts[0].page;
 	},
 };

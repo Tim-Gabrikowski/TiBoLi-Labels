@@ -14,7 +14,8 @@
 	"dependencies": {
 		"express": "^4.17.3",
 		"html-pdf": "^3.0.1",
-		"nodemon": "^2.0.15"
+		"nodemon": "^2.0.15",
+		"puppeteer": "^13.7.0"
 	},
 	"nodemonConfig": {
 		"ignore": [
