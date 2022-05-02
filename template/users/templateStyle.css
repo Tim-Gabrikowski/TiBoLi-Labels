@@ -27,7 +27,7 @@ body {
 td {
 	margin: 0mm;
 	padding: 0mm;
-	outline-color: rgb(0, 0, 0);
+	outline-color: rgb(255, 255, 255);
 	outline-width: 1px;
 	outline-style: solid;
 	height: 38mm;
