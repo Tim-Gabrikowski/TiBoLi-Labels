@@ -2,24 +2,12 @@ const { randomInt } = require("crypto");
 var fs = require("fs");
 const puppeteer = require("puppeteer");
 
-var options = {
-	height: "297mm",
-	width: "210mm",
-	base: __dirname + "/template/",
-	border: {
-		top: "0mm", // default is 0, units: mm, cm, in, px
-		right: "0mm",
-		bottom: "0mm",
-		left: "0mm",
-	},
-};
-console.log(options.base);
-var testBook = {
-	mNumber: 123456789,
-	title: "Der Marsianer",
-	author: "Andy Weir",
-};
-startAt = "13";
+// var testBook = {
+// 	mNumber: 123456789,
+// 	title: "Der Marsianer",
+// 	author: "Andy Weir",
+// };
+// startAt = "13";
 
 var contracts = [];
 
@@ -36,7 +24,7 @@ async function printPDF(contractID) {
 }
 
 module.exports = {
-	createPDF(inputData, callback) {
+	createBookPDF(inputData, callback) {
 		//generate contractID for filename
 		const contractID = randomInt(99999);
 		const data = {
@@ -54,7 +42,38 @@ module.exports = {
 		}
 
 		//read Template and replace Placeholders with Data:
-		var html = fs.readFileSync("./template/template.html", "utf8");
+		var html = fs.readFileSync("./template/books/template.html", "utf8");
+		html = html.replace('"-INPUT-"', JSON.stringify(data));
+
+		contracts.push({
+			id: contractID,
+			page: html,
+		});
+		//generate pdf to file with contractID as part of name
+		printPDF(contractID).then((res) => {
+			//return filename to callback
+			callback(res);
+		});
+	},
+	createUserPDF(inputData, callback) {
+		//generate contractID for filename
+		const contractID = randomInt(99999);
+		const data = {
+			users: [],
+		};
+
+		for (var i = 0; i < inputData.users.length; i++) {
+			var element = inputData.users[i];
+
+			var row = Math.floor((inputData.startAt + i) / 3);
+			var cell = (inputData.startAt + i) % 3;
+			element.position = `${row}${cell}`;
+
+			data.users.push(element);
+		}
+
+		//read Template and replace Placeholders with Data:
+		var html = fs.readFileSync("./template/users/template.html", "utf8");
 		html = html.replace('"-INPUT-"', JSON.stringify(data));
 
 		contracts.push({

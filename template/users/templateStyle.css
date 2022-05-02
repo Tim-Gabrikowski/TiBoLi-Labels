@@ -27,13 +27,13 @@ body {
 td {
 	margin: 0mm;
 	padding: 0mm;
-	outline-color: black;
+	outline-color: rgb(0, 0, 0);
 	outline-width: 1px;
 	outline-style: solid;
 	height: 38mm;
 	width: 63.5mm;
 
-	text-align: center;
+	/* text-align: center; */
 	overflow: hidden;
 }
 
@@ -43,4 +43,7 @@ td {
 	left: 0mm;
 
 	padding: 2mm;
+}
+p {
+	margin-left: 5mm;
 }
