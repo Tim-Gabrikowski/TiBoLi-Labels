@@ -33,7 +33,7 @@ td {
 	height: 38mm;
 	width: 63.5mm;
 
-	/* text-align: center; */
+	text-align: center;
 	overflow: hidden;
 }
 
@@ -44,6 +44,6 @@ td {
 
 	padding: 2mm;
 }
-p {
+/* p {
 	margin-left: 5mm;
-}
+} */
