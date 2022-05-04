@@ -55,25 +55,28 @@ module.exports = {
 			callback(res);
 		});
 	},
-	createUserPDF(inputData, callback) {
+	createCustomerPDF(inputData, callback) {
 		//generate contractID for filename
 		const contractID = randomInt(99999);
 		const data = {
-			users: [],
+			customers: [],
 		};
 
-		for (var i = 0; i < inputData.users.length; i++) {
-			var element = inputData.users[i];
+		for (var i = 0; i < inputData.customers.length; i++) {
+			var element = inputData.customers[i];
 
 			var row = Math.floor((inputData.startAt + i) / 3);
 			var cell = (inputData.startAt + i) % 3;
 			element.position = `${row}${cell}`;
 
-			data.users.push(element);
+			data.customers.push(element);
 		}
 
 		//read Template and replace Placeholders with Data:
-		var html = fs.readFileSync("./template/users/template.html", "utf8");
+		var html = fs.readFileSync(
+			"./template/customers/template.html",
+			"utf8"
+		);
 		html = html.replace('"-INPUT-"', JSON.stringify(data));
 
 		contracts.push({

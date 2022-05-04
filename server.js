@@ -7,8 +7,8 @@ app.use(express.json());
 app.get("/style/books", (req, res) => {
 	res.sendFile(__dirname + "/template/books/templateStyle.css");
 });
-app.get("/style/users", (req, res) => {
-	res.sendFile(__dirname + "/template/users/templateStyle.css");
+app.get("/style/customers", (req, res) => {
+	res.sendFile(__dirname + "/template/customers/templateStyle.css");
 });
 
 app.get("/contract/:contractID", (req, res) => {
@@ -23,8 +23,8 @@ app.post("/pdf/books", (req, res) => {
 		res.send(pdf);
 	});
 });
-app.post("/pdf/users", (req, res) => {
-	pdfService.createUserPDF(req.body, (pdf) => {
+app.post("/pdf/customers", (req, res) => {
+	pdfService.createCustomerPDF(req.body, (pdf) => {
 		res.set({
 			"Content-Type": "application/pdf",
 			"Content-Length": pdf.length,

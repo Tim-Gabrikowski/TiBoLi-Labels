@@ -7,7 +7,7 @@
 		<link
 			rel="stylesheet"
 			type="text/css"
-			href="http://localhost:3006/style/users"
+			href="http://localhost:3006/style/customers"
 		/>
 		<script>
 			Number.prototype.zeroPadding = function () {
@@ -146,7 +146,7 @@
 		<script>
 			var infobox = document.getElementById("infobox");
 			var data = {
-				users: [
+				customers: [
 					{
 						id: 11111,
 						vorname: "Tim",
@@ -163,20 +163,20 @@
 			// data = JSON.parse(data);
 
 			try {
-				for (var i = 0; i < data.users.length; i++) {
-					var nameString = `${data.users[i].nachname}, ${data.users[i].vorname}`;
+				for (var i = 0; i < data.customers.length; i++) {
+					var nameString = `${data.customers[i].nachname}, ${data.customers[i].vorname}`;
 					document.getElementById(
-						"name-" + data.users[i].position
+						"name-" + data.customers[i].position
 					).innerText = nameString;
 
-					var classString = `${data.users[i].class.class}${data.users[i].class.letter}`;
+					var classString = `${data.customers[i].class.class}${data.customers[i].class.letter}`;
 					document.getElementById(
-						"class-" + data.users[i].position
+						"class-" + data.customers[i].position
 					).innerText = classString;
 
 					JsBarcode(
-						"#barcode-" + data.users[i].position,
-						data.users[i].id,
+						"#barcode-" + data.customers[i].position,
+						data.customers[i].id,
 						{
 							height: 30,
 							width: 2,
