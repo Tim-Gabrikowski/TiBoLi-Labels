@@ -42,7 +42,10 @@ module.exports = {
 		}
 
 		//read Template and replace Placeholders with Data:
-		var html = fs.readFileSync("./template/books/template.html", "utf8");
+		var html = fs.readFileSync(
+			__dirname + "/template/books/template.html",
+			"utf8"
+		);
 		html = html.replace('"-INPUT-"', JSON.stringify(data));
 
 		contracts.push({
@@ -74,7 +77,7 @@ module.exports = {
 
 		//read Template and replace Placeholders with Data:
 		var html = fs.readFileSync(
-			"./template/customers/template.html",
+			__dirname + "/template/customers/template.html",
 			"utf8"
 		);
 		html = html.replace('"-INPUT-"', JSON.stringify(data));
