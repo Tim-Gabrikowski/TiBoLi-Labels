@@ -14,7 +14,7 @@ var contracts = [];
 async function printPDF(contractID) {
 	const browser = await puppeteer.launch({ headless: true });
 	const page = await browser.newPage();
-	await page.goto("http://localhost:3006/contract/" + contractID, {
+	await page.goto("http://tiboli.tech4web.de/pdf/contract/" + contractID, {
 		waitUntil: "networkidle0",
 	});
 	const pdf = await page.pdf({ format: "A4" });
