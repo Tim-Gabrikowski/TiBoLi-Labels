@@ -1,8 +1,11 @@
 const app = require("express")();
 const express = require("express");
+const cors = require("cors");
 const pdfService = require("./index");
+require("dotenv").config();
 
 app.use(express.json());
+app.use(cors());
 
 app.get("/style/books", (req, res) => {
 	res.sendFile(__dirname + "/template/books/templateStyle.css");
@@ -32,6 +35,10 @@ app.post("/pdf/customers", (req, res) => {
 		res.send(pdf);
 	});
 });
-app.listen(3006, () => {
-	console.log("on!");
-});
+if (process.env.SERVER_IS_MODULE == "false") {
+	app.listen(3006, () => {
+		console.log("Labels:", 3006);
+	});
+} else if (process.env.SERVER_IS_MODULE == "true") {
+	module.exports = app;
+}
